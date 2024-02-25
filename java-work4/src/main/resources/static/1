@@ -1,0 +1,12 @@
+// 设置响应状态码为 401（未授权）
+        response.setStatus(-1);
+        // 设置响应的内容类型为 JSON
+        response.setContentType("application/json");
+        // 创建一个包含错误信息的 JSON 对象
+        Map<String, Object> result = new HashMap<>();
+        result.put("error", "Authentication failed");
+        result.put("message", authException.getMessage());
+        // 将 JSON 对象转换为字符串
+        String json = JSON.toJSONString(result);
+        //处理移除
+        WebUtils.renderString(response,json);
