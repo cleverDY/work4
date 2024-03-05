@@ -28,3 +28,5 @@ C:.
 │  │      └─templates
 
 ```
+## 有用到的技术
+springboot+redis+mysql，其中有用到springsecurity安全框架
