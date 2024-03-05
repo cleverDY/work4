@@ -4,14 +4,6 @@
 ```text
 
 C:.
-├─.idea
-│  └─dataSources
-│      └─fcdd692d-5c7f-4038-8cda-e1b7e7f467e6
-│          └─storage_v2
-│              └─_src_
-│                  └─schema
-├─.mvn
-│  └─wrapper
 ├─doc
 │  ├─file
 │  └─video
