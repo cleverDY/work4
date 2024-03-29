@@ -34,5 +34,7 @@ public class User implements Serializable {
     private LocalDate deletedAt;
 
     public User(String username, String finalPswd, List<GrantedAuthority> authorities) {
+        this.password=finalPswd;
+        this.username=username;
     }
 }

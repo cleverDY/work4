@@ -41,6 +41,7 @@ public class LoginServiceImpl implements LoginService {
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
         //如果认证没有通过，给出对应的提示
         if (Objects.isNull(authenticate)){
+            //System.out.println(8);
             throw new ErrorException(ErrorExceptionEnum.USER_NULL);
         }
         //如果认证通过，使用user生成jwt  jwt存入ResponseResult 返回

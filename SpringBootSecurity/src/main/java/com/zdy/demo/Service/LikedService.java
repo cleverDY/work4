@@ -1,8 +1,11 @@
 package com.zdy.demo.Service;
+import com.zdy.demo.exception.ErrorException;
 import com.zdy.demo.pojo.ResponseResult;
 import com.zdy.demo.pojo.UserLike;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 public interface LikedService {
@@ -12,7 +15,8 @@ public interface LikedService {
      * @param userLike
      * @return
      */
-    ResponseResult save(UserLike userLike);
+    @Transactional
+    ResponseResult save(String videoId, String commentId, Integer type) throws ErrorException;
 
     /**
      * 批量保存或修改

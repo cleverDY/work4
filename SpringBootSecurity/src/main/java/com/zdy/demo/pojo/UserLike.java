@@ -29,6 +29,8 @@ public class UserLike {
     //点赞的状态.默认未点赞
     private Integer status;
 
+
+
     public UserLike() {
     }
 
@@ -37,4 +39,6 @@ public class UserLike {
         this.likedPostId = likedPostId;
         this.status = status;
     }
+
+
 }

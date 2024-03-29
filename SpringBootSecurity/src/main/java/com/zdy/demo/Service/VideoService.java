@@ -15,7 +15,7 @@ public interface VideoService extends IService<Video> {
 
     ResponseResult<List<VideoDTO>> rankList(int pageSize, int page_num) ;
 
-    ResponseResult saveComment(Comment comment, String comment_id) throws Exception;
+    ResponseResult saveComment(Comment comment) throws Exception;
 
     ResponseResult deleteComment(String comment_id);
 }

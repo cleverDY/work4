@@ -19,8 +19,9 @@ public class VideoController {
     @Autowired
     private VideoService videoService;
     @PostMapping("/publish")
-    public ResponseResult<String> uploadVideo(@RequestParam("file") MultipartFile video) throws IOException {
-        return uploadVideoService.saveVideoFile(video);
+    public ResponseResult<String> uploadVideo(@RequestParam("file") MultipartFile video,
+                                              @RequestParam("title")String title) throws IOException {
+        return uploadVideoService.saveVideoFile(video,title);
     }
     @GetMapping("/list")
     public ResponseResult<List<VideoDTO>>queryVideoByUserId(

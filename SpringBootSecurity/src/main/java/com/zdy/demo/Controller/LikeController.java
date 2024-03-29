@@ -2,6 +2,7 @@ package com.zdy.demo.Controller;
 
 import com.zdy.demo.Service.LikedService;
 import com.zdy.demo.Service.VideoService;
+import com.zdy.demo.exception.ErrorException;
 import com.zdy.demo.pojo.Comment;
 import com.zdy.demo.pojo.ResponseResult;
 import com.zdy.demo.pojo.UserLike;
@@ -18,11 +19,10 @@ public class LikeController {
     public ResponseResult likeAction(
             @RequestParam("video_id")String video_id,
             @RequestParam("comment_id")String comment_id,
-            @RequestParam("action_type")Integer action_type) {
-        // 构造UserLike对象
-        UserLike userLike = new UserLike(comment_id,video_id,action_type);
+            @RequestParam("action_type")Integer action_type) throws ErrorException {
+
         // 调用likedService.save()来保存点赞记录
-        return likedService.save(userLike);
+        return likedService.save(video_id,comment_id,action_type);
     }
     @GetMapping("/like/list")
     public ResponseResult likeList(
@@ -34,14 +34,13 @@ public class LikeController {
     }
     @PostMapping("/comment/publish")
     public ResponseResult likeAction(
-            @RequestParam("video_id") String videoId, @RequestParam("content") String content,
-            @RequestParam("comment_id")String comment_id) throws Exception {
+            @RequestParam("video_id") String videoId, @RequestParam("content") String content) throws Exception {
 
         Comment comment=new Comment();
         comment.setVideo_id(Integer.parseInt(videoId));
         comment.setContent(content);
         // 调用likedService.save()来保存点赞记录
-        return videoService.saveComment(comment,comment_id);
+        return videoService.saveComment(comment);
     }
     @DeleteMapping("/comment/delete")
     public ResponseResult likeAction(

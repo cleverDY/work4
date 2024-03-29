@@ -1,5 +1,6 @@
 package com.zdy.demo.Service.Impl;
 import com.zdy.demo.Service.LikedService;
+import com.zdy.demo.exception.ErrorException;
 import com.zdy.demo.pojo.ResponseResult;
 import com.zdy.demo.pojo.UserLike;
 import com.zdy.demo.Service.UserLikeRepository;
@@ -20,9 +21,9 @@ public class LikedServiceImpl implements LikedService {
     UserLikeRepository userLikeRepository;
     @Override
     @Transactional
-    public ResponseResult save(UserLike userLike) {
-        UserLike save = userLikeRepository.save(userLike);
-        return new  ResponseResult<>(save);
+    public ResponseResult save(String videoId, String commentId, Integer type) throws ErrorException {
+        ResponseResult save1 = userLikeRepository.action(videoId, commentId, type);
+        return new  ResponseResult<>(save1);
     }
 
     @Override

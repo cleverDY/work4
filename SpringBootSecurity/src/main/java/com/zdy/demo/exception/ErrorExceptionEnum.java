@@ -8,7 +8,8 @@ public enum ErrorExceptionEnum {
     PASSWORD_TOO_SHORT(10005,"密码太短"),
     WRONG_PASSWORD(10006, "密码错误"),
     USER_NULL(10007,"用户不存在"),
-    FILE_UPLOAD_FAILED(10008, "上传失败");
+    FILE_UPLOAD_FAILED(10008, "上传失败"),
+    FILE_PARA(10009,"参数错误");
 
     private String message;//具体错误消息
     private Integer Code;//属于哪个模块下的操作失败code

@@ -14,10 +14,6 @@ import java.util.List;
 public class LoginUser implements org.springframework.security.core.userdetails.UserDetails {
 
     private User user;
-
-    public LoginUser(String username, String finalPswd, List<GrantedAuthority> authorities) {
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

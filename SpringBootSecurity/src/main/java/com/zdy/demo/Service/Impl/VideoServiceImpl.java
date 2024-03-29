@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zdy.demo.pojo.*;
 import com.zdy.demo.Service.CommentRepository;
 import com.zdy.demo.mapper.CommentMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import redis.clients.jedis.Jedis;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -121,31 +122,31 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
     @Transactional
     @Override
     //目前只是写了一级评论，没有写二级评论
-    public ResponseResult saveComment(Comment comment, String comment_id) throws Exception {
+    public ResponseResult saveComment(Comment comment) throws Exception {
+        LoginUser principal = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = principal.getUser();
+        System.out.println(comment.getVideo_id());
         if (comment.getVideo_id() == 0)
         {
             throw new Exception("getVideo_id() == null");
         }
         if ( StringUtils.isEmpty(comment.getContent())) {
-            throw new Exception("StringUtils.isEmpty(comment.getContent())");
+            throw new Exception("null");
         }
-        if (comment_id == null)
-        {
-            throw new Exception("comment_id() == null");
-        }
-        comment.setUserId(comment_id);
+
+        comment.setUserId(user.getId());
         /*comment.setCreatedAt(System.currentTimeMillis());*/
         LocalDateTime createdAt = LocalDateTime.ofEpochSecond(System.currentTimeMillis() / 1000, 0, ZoneOffset.UTC);
         comment.setCreatedAt(LocalDate.from(createdAt));
         comment.setParentId(0L);
-        Comment save = commentRepository.save(comment);
-        //更新video表里面comment的值
         Video video = videoMapper.selectById(comment.getVideo_id());
-        //System.out.println(video.getComments());
         UpdateWrapper<Video> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("id", comment.getVideo_id())
                 .set("comments", video.getComments()+1);//更新操作
-        videoMapper.update(null, updateWrapper);
+         videoMapper.update(null, updateWrapper);
+        Comment save = commentRepository.save(comment);
+        //更新video表里面comment的值
+        //System.out.println(video.getComments());
         return new  ResponseResult<>(save);
     }
 
